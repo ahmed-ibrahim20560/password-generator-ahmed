@@ -88,46 +88,51 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-const charOptions = [];
-const generatedPassword = '';
+
+
 // You can store the generatedPassword as a string and concat each character OR
 // as an array and push each character, then join once you have enough characters
 
 // Function to prompt user for password options
 
 function getPasswordOptions() {
-  {
+  let charOptions = [];
+
     let pwLength = parseInt(prompt("How many characters would you like your password to be? (Must be more than 8 and less than 128)"))
     while (pwLength < 8 || pwLength > 128) {
       alert("Invalid password length. Please make it between 8 and 128 characters!")
+      pwLength = parseInt(prompt("How many characters would you like your password to be? (Must be more than 8 and less than 128)"))
     }
 
     let specialChar = confirm("Would you like to have special characters in your password") 
-    if (specialChar = true) {
-      charOptions += specialCharacters
+    if (specialChar == true) {
+      charOptions = charOptions.concat(specialCharacters) 
     }
     let numericChar = confirm("Would you like to have numbers in your password")
-    if (numericChar = true) {
-      charOptions += numericCharacters
+    if (numericChar == true) {
+      charOptions = charOptions.concat(numericCharacters)
     }
     let upperCaseChar = confirm("Would you like to have upper case characters in your password")
-    if (upperCaseChar = true) {
-      charOptions += upperCasedCharacters
+    if (upperCaseChar == true) {
+      charOptions = charOptions.concat(upperCasedCharacters)
     }
     let lowerCaseChar = confirm("Would you like to have lower case characters in your password")
-    if (lowerCaseChar = true) {
-      charOptions += lowerCasedCharacters
+    if (lowerCaseChar == true) {
+      charOptions = charOptions.concat(lowerCasedCharacters)
     }
 
-    // let pwOptions = {
-    //   length: pwLength,
-    //   special: specialChar,
-    //   number: numericChar,
-    //   upper: upperCaseChar,
-    //   lower: lowerCaseChar,
-    // }
-  }
+    if (charOptions.length == 0) {
+      alert("No options to choose from. Please select at least one of the options in order to generate the password")
+      return getPasswordOptions()
+    }
+    let pwOptions = {
+      length: pwLength,
+      characterOptions: charOptions,
+    }
 
+    return pwOptions
+  
+    
 
   // Prompt for password length
   // At least 8 characters, no more than 128 characters
@@ -147,7 +152,16 @@ function getPasswordOptions() {
 }
 
 // Function for getting a random element from an array
-function getRandom(arr) {
+function getRandom(arr, pwLength) {
+  let generatedPassword = '';
+    for (let i = 0; i < pwLength; i++) {
+     generatedPassword += arr[Math.floor(Math.random() * arr.length)]
+  } 
+  
+  return generatedPassword
+
+
+
   // Need a variable to hold the password as it's being generated
   // Need a variable to hold the index that's being generated
 
@@ -160,10 +174,12 @@ function getRandom(arr) {
   // Once we finish the for loop, return the generated password
 }
 
-
 // Function to generate password with user input
 function generatePassword() {
+ let Options = getPasswordOptions()
+ let Random = getRandom(Options.characterOptions , Options.length)
 
+ return Random
 }
 
 // Get references to the #generate element
