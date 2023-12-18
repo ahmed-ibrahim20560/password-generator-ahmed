@@ -94,29 +94,40 @@ const generatedPassword = '';
 // as an array and push each character, then join once you have enough characters
 
 // Function to prompt user for password options
+
 function getPasswordOptions() {
   {
-    let pwlength = parseInt(prompt("How many characters would you like your password to be? (Must be more than 8 and less than 128)"))
-    if (pwlength < 8 || pwlength > 128) {
+    let pwLength = parseInt(prompt("How many characters would you like your password to be? (Must be more than 8 and less than 128)"))
+    while (pwLength < 8 || pwLength > 128) {
       alert("Invalid password length. Please make it between 8 and 128 characters!")
-      return
     }
 
-    let specialChar = confirm("Would you like to have special characters in your password")
+    let specialChar = confirm("Would you like to have special characters in your password") 
+    if (specialChar = true) {
+      charOptions += specialCharacters
+    }
     let numericChar = confirm("Would you like to have numbers in your password")
-    let upperCaseChar = confirm("Would you like to have upper case characters in your password")
-    let lowerCaseChar = confirm("Would you like to have lower case characters in your password")
-
-    let pwOptions = {
-      length: pwlength,
-      special: specialChar,
-      number: numericChar,
-      upper: upperCaseChar,
-      lower: lowerCaseChar,
+    if (numericChar = true) {
+      charOptions += numericCharacters
     }
+    let upperCaseChar = confirm("Would you like to have upper case characters in your password")
+    if (upperCaseChar = true) {
+      charOptions += upperCasedCharacters
+    }
+    let lowerCaseChar = confirm("Would you like to have lower case characters in your password")
+    if (lowerCaseChar = true) {
+      charOptions += lowerCasedCharacters
+    }
+
+    // let pwOptions = {
+    //   length: pwLength,
+    //   special: specialChar,
+    //   number: numericChar,
+    //   upper: upperCaseChar,
+    //   lower: lowerCaseChar,
+    // }
   }
-  // MY OWN notes
-  // make sure to use while loops instead of if statements so that the function doesn't end
+
 
   // Prompt for password length
   // At least 8 characters, no more than 128 characters
